@@ -12,30 +12,51 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        message: ""
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "26721b48-37db-49b6-9ea8-452d92636647",
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          message: formData.message,
+        }),
       });
+
+      const result = await response.json();
       
-      // Reset success message after 5 seconds
-      setTimeout(() => setIsSuccess(false), 5000);
-    }, 1500);
+      if (result.success) {
+        setIsSuccess(true);
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          message: ""
+        });
+      } else {
+        setError(result.message || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      setError("Failed to submit form. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -98,7 +119,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Email Us</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors">
-                      <a href="mailto:hello@yourdigitalagency.com">hello@yourdigitalagency.com</a>
+                      <a href="infowebsathi.ws@gmail.com">infowebsathi.ws@gmail.com</a>
                     </p>
                   </div>
                 </div>
@@ -110,7 +131,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Call Us</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors">
-                      <a href="tel:+1234567890">+1 (234) 567-890</a>
+                      <a href="tel:+1234567890">+977 9815180196</a>
                     </p>
                   </div>
                 </div>
@@ -121,7 +142,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Visit Us</h3>
-                    <p className="text-gray-600">123 Digital Street<br />Tech City, TC 10001</p>
+                    <p className="text-gray-600">Kalanki<br />Kathmandu, Nepal</p>
                   </div>
                 </div>
               </div>
@@ -130,15 +151,15 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Business Hours</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex justify-between">
-                    <span>Monday - Friday</span>
+                    <span>Sunday-  Friday</span>
                     <span>9:00 AM - 6:00 PM</span>
                   </li>
                   <li className="flex justify-between">
-                    <span>Saturday</span>
+                    <span>Friday</span>
                     <span>10:00 AM - 4:00 PM</span>
                   </li>
                   <li className="flex justify-between">
-                    <span>Sunday</span>
+                    <span>Saturday</span>
                     <span>Closed</span>
                   </li>
                 </ul>
@@ -175,7 +196,13 @@ export default function ContactPage() {
                 ) : (
                   <>
                     <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+                    {error && (
+                      <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
+                        {error}
+                      </div>
+                    )}
                     <form onSubmit={handleSubmit}>
+                      <input type="hidden" name="access_key" value="26721b48-37db-49b6-9ea8-452d92636647" />
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div>
                           <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
