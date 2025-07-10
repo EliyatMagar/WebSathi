@@ -60,7 +60,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white ">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white overflow-hidden min-h-[50vh] flex items-center">
         <div className="absolute inset-0 opacity-20">

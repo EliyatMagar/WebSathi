@@ -1,7 +1,11 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+
 import { FiAward, FiUsers, FiCheckCircle, FiArrowRight, FiSearch, FiPenTool, FiCode, FiBarChart2, FiLinkedin, FiGithub, FiTwitter } from "react-icons/fi";
+
+
+
 import teamImage from "../../assets/team.jpeg";
 
 export default function AboutPage() {
@@ -10,6 +14,7 @@ export default function AboutPage() {
     { value: "15+", label: "Satisfied Clients", icon: <FiUsers className="w-6 h-6" /> },
     { value: "5+", label: "Years Experience", icon: <FiAward className="w-6 h-6" /> }
   ];
+
 
   const teamMembers = [
     {
@@ -204,7 +209,6 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
-
       {/* Our Team */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-6">

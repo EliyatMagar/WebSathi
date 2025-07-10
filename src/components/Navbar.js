@@ -25,9 +25,6 @@ export default function Navbar() {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // Animation variants for framer-motion would go here
-  // (Note: You would need to install framer-motion for these advanced animations)
-
   return (
     <nav className={`bg-[#202429] text-white shadow-lg sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'py-2' : 'py-0'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -180,15 +177,11 @@ export default function Navbar() {
               Contact
             </span>
           </Link>
-         <Link 
-  href="/contact" 
-  className="block w-full mt-2 text-center px-3 py-3 rounded-md text-base font-medium text-white 
-            bg-gradient-to-r from-[#FF7B25] to-[#00A6ED] 
-            hover:bg-gradient-to-r hover:from-[#00A6ED] hover:to-[#FF7B25] 
-            transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] 
-            hover:shadow-lg hover:shadow-[#00A6ED]/30 hover:scale-[1.02]"
-  onClick={toggleMenu}
->
+          <Link 
+            href="/contact" 
+            className="block w-full mt-2 text-center px-3 py-3 rounded-md text-base font-medium text-white bg-gradient-to-r from-[#E5862A] to-[#019FD5] hover:from-[#019FD5] hover:to-[#E5862A] transition-all duration-300 hover:shadow-lg hover:scale-[1.02]"
+            onClick={toggleMenu}
+          >
             Get Started
           </Link>
         </div>
