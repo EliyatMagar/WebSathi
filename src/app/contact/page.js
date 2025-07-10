@@ -60,7 +60,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="bg-white ">
+    <div className="bg-white">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white overflow-hidden min-h-[50vh] flex items-center">
         <div className="absolute inset-0 opacity-20">
@@ -78,7 +78,7 @@ export default function ContactPage() {
           ></motion.div>
         </div>
         
-        <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
+        <div className="mx-auto max-w-[1240px] w-full px-6 py-24 md:py-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,7 +97,7 @@ export default function ContactPage() {
 
       {/* Contact Content */}
       <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <div className="flex flex-col lg:flex-row gap-16">
             {/* Contact Info */}
             <motion.div 
@@ -119,7 +119,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Email Us</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors">
-                      <a href="infowebsathi.ws@gmail.com">infowebsathi.ws@gmail.com</a>
+                      <a href="mailto:infowebsathi.ws@gmail.com">infowebsathi.ws@gmail.com</a>
                     </p>
                   </div>
                 </div>
@@ -131,7 +131,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900 mb-1">Call Us</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors">
-                      <a href="tel:+1234567890">+977 9815180196</a>
+                      <a href="tel:+9779815180196">+977 9815180196</a>
                     </p>
                   </div>
                 </div>
@@ -151,7 +151,7 @@ export default function ContactPage() {
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Business Hours</h3>
                 <ul className="space-y-2 text-gray-600">
                   <li className="flex justify-between">
-                    <span>Sunday-  Friday</span>
+                    <span>Sunday- Friday</span>
                     <span>9:00 AM - 6:00 PM</span>
                   </li>
                   <li className="flex justify-between">
@@ -285,7 +285,7 @@ export default function ContactPage() {
 
       {/* Map Section */}
       <section className="py-0 md:py-0 bg-gray-50">
-        <div className="container mx-auto px-0">
+        <div className="mx-auto max-w-[1240px] w-full px-0">
           <div className="h-96 w-full">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215256018607!2d-73.98784492416462!3d40.74844097138985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1623861256843!5m2!1sen!2sus"
@@ -302,7 +302,7 @@ export default function ContactPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-white">
-        <div className="container mx-auto px-6 text-center">
+        <div className="mx-auto max-w-[1240px] w-full px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

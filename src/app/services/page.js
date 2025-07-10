@@ -87,7 +87,7 @@ export default function ServicePage() {
           ></motion.div>
         </div>
         
-        <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
+        <div className="mx-auto max-w-[1240px] w-full px-6 py-24 md:py-32 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ export default function ServicePage() {
 
       {/* Services Grid */}
       <section className="py-16 md:py-24 bg-gray-50">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -172,7 +172,7 @@ export default function ServicePage() {
 
       {/* Process Section */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -236,7 +236,7 @@ export default function ServicePage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
-        <div className="container mx-auto px-6 text-center">
+        <div className="mx-auto max-w-[1240px] w-full px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

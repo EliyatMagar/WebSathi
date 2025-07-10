@@ -1,11 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
-
 import { FiAward, FiUsers, FiCheckCircle, FiArrowRight, FiSearch, FiPenTool, FiCode, FiBarChart2, FiLinkedin, FiGithub, FiTwitter } from "react-icons/fi";
-
-
-
 import teamImage from "../../assets/team.jpeg";
 
 export default function AboutPage() {
@@ -14,7 +10,6 @@ export default function AboutPage() {
     { value: "15+", label: "Satisfied Clients", icon: <FiUsers className="w-6 h-6" /> },
     { value: "5+", label: "Years Experience", icon: <FiAward className="w-6 h-6" /> }
   ];
-
 
   const teamMembers = [
     {
@@ -62,7 +57,7 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden min-h-[80vh] flex items-center">
+      <section className="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden min-h-[65vh] flex items-center">
         {/* Animated background elements */}
         <div className="absolute inset-0 opacity-20">
           <motion.div
@@ -75,7 +70,7 @@ export default function AboutPage() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-20 left-20 w-40 h-40 rounded-full bg-blue-500 blur-3xl"
+            className="absolute top-20 left-20 w-32 h-32 rounded-full bg-blue-500 blur-3xl"
           ></motion.div>
           <motion.div
             animate={{
@@ -87,11 +82,11 @@ export default function AboutPage() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute bottom-20 right-20 w-40 h-40 rounded-full bg-indigo-500 blur-3xl"
+            className="absolute bottom-20 right-20 w-32 h-32 rounded-full bg-indigo-500 blur-3xl"
           ></motion.div>
         </div>
         
-        <div className="container mx-auto px-6 py-24 md:py-32 relative z-10">
+        <div className="mx-auto max-w-[1240px] w-full px-6 py-8 md:py-12 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
@@ -102,7 +97,7 @@ export default function AboutPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
             >
               We're More Than Just a <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Digital Agency</span>
             </motion.h1>
@@ -110,7 +105,7 @@ export default function AboutPage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl"
+              className="text-lg md:text-xl text-blue-100 mb-6 max-w-3xl"
             >
               We're strategic partners in your digital transformation journey, combining creativity with technology to deliver exceptional results.
             </motion.p>
@@ -119,9 +114,9 @@ export default function AboutPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <button className="px-8 py-3.5 text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2">
+              <button className="px-6 py-3 text-base font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2">
                 Get in Touch
-                <FiArrowRight className="w-5 h-5" />
+                <FiArrowRight className="w-4 h-4" />
               </button>
             </motion.div>
           </motion.div>
@@ -130,7 +125,7 @@ export default function AboutPage() {
 
       {/* Our Story */}
       <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -40 }}
@@ -180,7 +175,7 @@ export default function AboutPage() {
 
       {/* Stats */}
       <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -209,9 +204,10 @@ export default function AboutPage() {
           </motion.div>
         </div>
       </section>
+
       {/* Our Team */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -267,7 +263,7 @@ export default function AboutPage() {
 
       {/* Our Approach */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-6">
+        <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -328,7 +324,7 @@ export default function AboutPage() {
 
       {/* CTA Section */}
       <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
-        <div className="container mx-auto px-6 text-center">
+        <div className="mx-auto max-w-[1240px] w-full px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
