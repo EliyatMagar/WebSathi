@@ -81,6 +81,14 @@ export default function Navbar() {
                   Contact
                   <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E5862A] transition-all duration-300 group-hover:w-full"></span>
                 </Link>
+
+                  <Link 
+                  href="/blog" 
+                  className="relative text-white hover:text-[#E5862A] px-2 py-2 rounded-md text-sm font-medium transition duration-300 group"
+                >
+                  Blog
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#E5862A] transition-all duration-300 group-hover:w-full"></span>
+                </Link>
               </div>
             </div>
           </div>
@@ -175,6 +183,19 @@ export default function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               Contact
+            </span>
+          </Link>
+
+          <Link 
+            href="/blog" 
+            className="transform hover:translate-x-2 text-white hover:bg-[#019FD5] hover:text-white block px-3 py-3 rounded-md text-base font-medium transition-all duration-300"
+            onClick={toggleMenu}
+          >
+            <span className="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Blog
             </span>
           </Link>
           <Link 
