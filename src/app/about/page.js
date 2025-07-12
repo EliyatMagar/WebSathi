@@ -1,10 +1,22 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
 import { FiAward, FiUsers, FiCheckCircle, FiArrowRight, FiSearch, FiPenTool, FiCode, FiBarChart2, FiLinkedin, FiGithub, FiTwitter } from "react-icons/fi";
 import teamImage from "../../assets/team.jpeg";
 
 export default function AboutPage() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"]
+  });
+
+  // Parallax values
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const yTeam = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+
   const stats = [
     { value: "50+", label: "Projects Completed", icon: <FiCheckCircle className="w-6 h-6" /> },
     { value: "15+", label: "Satisfied Clients", icon: <FiUsers className="w-6 h-6" /> },
@@ -52,7 +64,7 @@ export default function AboutPage() {
         twitter: "#"
       }
     },
-     {
+    {
       name: "Shreesha Thapa",
       role: "Member",
       bio: "Full-stack developer focused on building robust, high-performance applications.",
@@ -65,57 +77,109 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-indigo-800 to-purple-900 text-white overflow-hidden min-h-[65vh] flex items-center">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-20">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-20 left-20 w-32 h-32 rounded-full bg-blue-500 blur-3xl"
-          ></motion.div>
-          <motion.div
-            animate={{
-              x: [0, -80, 0],
-              y: [0, 60, 0],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute bottom-20 right-20 w-32 h-32 rounded-full bg-indigo-500 blur-3xl"
-          ></motion.div>
+    <div className="bg-white overflow-hidden" ref={ref}>
+      {/* Modern Hero Section */}
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800">
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         </div>
-        
-        <div className="mx-auto max-w-[1240px] w-full px-6 py-8 md:py-12 relative z-10">
+
+        {/* Floating Shapes Animation */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="absolute inset-0 overflow-hidden"
+        >
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                scale: Math.random() * 0.5 + 0.5
+              }}
+              animate={{
+                x: [null, Math.random() * 100],
+                y: [null, Math.random() * 100],
+                rotate: [0, Math.random() * 360]
+              }}
+              transition={{
+                duration: Math.random() * 20 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear"
+              }}
+              className={`absolute rounded-full ${i % 3 === 0 ? 'bg-cyan-400' : i % 2 === 0 ? 'bg-purple-500' : 'bg-violet-600'} opacity-20`}
+              style={{
+                width: `${Math.random() * 200 + 50}px`,
+                height: `${Math.random() * 200 + 50}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                filter: 'blur(40px)'
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Digital Particles */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(50)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                opacity: 0
+              }}
+              animate={{
+                y: [0, Math.random() * 100 - 50],
+                x: [0, Math.random() * 100 - 50],
+                opacity: [0, 0.6, 0]
+              }}
+              transition={{
+                duration: 10 + Math.random() * 20,
+                repeat: Infinity,
+                delay: Math.random() * 5
+              }}
+              className="absolute rounded-full bg-white"
+              style={{
+                width: `${Math.random() * 3 + 1}px`,
+                height: `${Math.random() * 3 + 1}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Content */}
+        <motion.div 
+          style={{ y: yText }}
+          className="mx-auto max-w-[1240px] w-full px-6 py-8 md:py-12 relative z-10 text-center"
+        >
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="max-w-4xl"
+            className="max-w-4xl mx-auto"
           >
             <motion.h1 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 leading-tight"
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
             >
-              We're More Than Just a <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Digital Agency</span>
+              <span className="text-white">We're More Than Just a </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400 animate-gradient">Digital Agency</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="text-lg md:text-xl text-blue-100 mb-6 max-w-3xl"
+              className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto"
             >
               We're strategic partners in your digital transformation journey, combining creativity with technology to deliver exceptional results.
             </motion.p>
@@ -124,17 +188,39 @@ export default function AboutPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.8 }}
             >
-              <button className="px-6 py-3 text-base font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center gap-2">
-                Get in Touch
-                <FiArrowRight className="w-4 h-4" />
-              </button>
+              <motion.button 
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 0 20px rgba(34, 211, 238, 0.5)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 mx-auto relative overflow-hidden group"
+              >
+                <span className="relative z-10">Get in Touch</span>
+                <FiArrowRight className="w-5 h-5 relative z-10" />
+                <span className="absolute inset-0 bg-gradient-to-r from-blue-600 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+              </motion.button>
             </motion.div>
           </motion.div>
+        </motion.div>
+
+        {/* Animated Digital Lines */}
+        <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden">
+          <motion.div
+            initial={{ x: '-100%' }}
+            animate={{ x: '100%' }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "linear"
+            }}
+            className="h-full bg-gradient-to-r from-transparent via-cyan-400/80 to-transparent w-1/2"
+          />
         </div>
       </section>
 
       {/* Our Story */}
-      <section className="py-16 md:py-24">
+      <section className="relative py-16 md:py-24 bg-white z-10">
         <div className="mx-auto max-w-[1240px] w-full px-6">
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
             <motion.div 
@@ -183,8 +269,8 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Stats */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
+      {/* Stats with Floating Animation */}
+      <section className="relative py-16 bg-gradient-to-br from-gray-50 to-white z-10">
         <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
@@ -197,6 +283,18 @@ export default function AboutPage() {
               <motion.div
                 key={index}
                 whileHover={{ y: -10 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                animate={{
+                  y: [0, -15, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: index * 0.3
+                }}
                 className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
               >
                 <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-blue-100 to-cyan-100 flex items-center justify-center text-blue-600">
@@ -215,9 +313,14 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Team */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-[1240px] w-full px-6">
+      {/* Our Team with Parallax */}
+      <section className="relative py-16 md:py-24 bg-white overflow-hidden">
+        <motion.div 
+          style={{ y: yTeam }}
+          className="absolute inset-0 bg-gradient-to-b from-blue-50 to-transparent opacity-20 z-0"
+        />
+        
+        <div className="relative mx-auto max-w-[1240px] w-full px-6 z-10">
           <motion.div 
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
@@ -237,32 +340,58 @@ export default function AboutPage() {
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -10 }}
+                initial={{ opacity: 0, y: 40, rotateY: 90 }}
+                whileInView={{ opacity: 1, y: 0, rotateY: 0 }}
+                whileHover={{ 
+                  y: -15,
+                  boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.3), 0 10px 10px -5px rgba(59, 130, 246, 0.1)"
+                }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300"
+                transition={{ 
+                  duration: 0.6, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className="bg-white rounded-xl shadow-lg hover:shadow-xl overflow-hidden transition-all duration-300 transform hover:-translate-y-2"
               >
                 <div className="bg-gradient-to-r from-blue-50 to-cyan-50 h-48 flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-100 to-cyan-200 flex items-center justify-center text-4xl font-bold text-blue-600">
+                  <motion.div 
+                    initial={{ scale: 0.8 }}
+                    whileInView={{ scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 + 0.3 }}
+                    className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-100 to-cyan-200 flex items-center justify-center text-4xl font-bold text-blue-600"
+                  >
                     {member.name.split(' ').map(n => n[0]).join('')}
-                  </div>
+                  </motion.div>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
                   <p className="text-blue-600 mb-4">{member.role}</p>
                   <p className="text-gray-600 mb-5">{member.bio}</p>
-                  <div className="flex gap-4">
-                    <a href={member.social.linkedin} className="text-gray-500 hover:text-blue-700 transition-colors">
+                  <div className="flex gap-4 justify-center">
+                    <motion.a 
+                      whileHover={{ y: -3 }}
+                      href={member.social.linkedin} 
+                      className="text-gray-500 hover:text-blue-700 transition-colors"
+                    >
                       <FiLinkedin className="w-5 h-5" />
-                    </a>
-                    <a href={member.social.github} className="text-gray-500 hover:text-gray-900 transition-colors">
+                    </motion.a>
+                    <motion.a 
+                      whileHover={{ y: -3 }}
+                      href={member.social.github} 
+                      className="text-gray-500 hover:text-gray-900 transition-colors"
+                    >
                       <FiGithub className="w-5 h-5" />
-                    </a>
-                    <a href={member.social.twitter} className="text-gray-500 hover:text-blue-400 transition-colors">
+                    </motion.a>
+                    <motion.a 
+                      whileHover={{ y: -3 }}
+                      href={member.social.twitter} 
+                      className="text-gray-500 hover:text-blue-400 transition-colors"
+                    >
                       <FiTwitter className="w-5 h-5" />
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>
@@ -272,7 +401,7 @@ export default function AboutPage() {
       </section>
 
       {/* Our Approach */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="relative py-16 md:py-24 bg-white z-10">
         <div className="mx-auto max-w-[1240px] w-full px-6">
           <motion.div 
             initial={{ opacity: 0 }}
@@ -294,38 +423,51 @@ export default function AboutPage() {
               { 
                 title: "Discover", 
                 desc: "Deep dive into your business objectives",
-                icon: <FiSearch className="w-6 h-6" />
+                icon: <FiSearch className="w-6 h-6" />,
+                color: "from-blue-500 to-blue-600"
               },
               { 
                 title: "Strategize", 
                 desc: "Create a customized digital roadmap",
-                icon: <FiPenTool className="w-6 h-6" />
+                icon: <FiPenTool className="w-6 h-6" />,
+                color: "from-cyan-500 to-blue-500"
               },
               { 
                 title: "Execute", 
                 desc: "Implement with precision and creativity",
-                icon: <FiCode className="w-6 h-6" />
+                icon: <FiCode className="w-6 h-6" />,
+                color: "from-purple-500 to-indigo-500"
               },
               { 
                 title: "Optimize", 
                 desc: "Continuously improve performance",
-                icon: <FiBarChart2 className="w-6 h-6" />
+                icon: <FiBarChart2 className="w-6 h-6" />,
+                color: "from-green-500 to-teal-500"
               }
             ].map((item, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ y: -10 }}
+                initial={{ opacity: 0, y: 40, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                whileHover={{ 
+                  y: -10,
+                  scale: 1.02
+                }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-t-4 border-blue-500"
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                className={`bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border-t-4 bg-gradient-to-b ${item.color} relative overflow-hidden group`}
               >
-                <div className="w-12 h-12 mb-4 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center">
+                <div className="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-10 transition-opacity duration-300 from-blue-500 to-cyan-500"></div>
+                <div className={`w-12 h-12 mb-4 rounded-lg bg-gradient-to-br ${item.color} text-white flex items-center justify-center relative z-10`}>
                   {item.icon}
                 </div>
-                <div className="text-2xl font-bold text-gray-900 mb-3">{item.title}</div>
-                <p className="text-gray-600">{item.desc}</p>
+                <div className="text-2xl font-bold text-gray-900 mb-3 relative z-10">{item.title}</div>
+                <p className="text-gray-600 relative z-10">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -333,8 +475,12 @@ export default function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
-        <div className="mx-auto max-w-[1240px] w-full px-6 text-center">
+      <section className="relative py-20 bg-gradient-to-r from-gray-900 to-purple-900 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20"></div>
+        </div>
+        
+        <div className="relative mx-auto max-w-[1240px] w-full px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

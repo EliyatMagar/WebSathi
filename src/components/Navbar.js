@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import WebSathiLogo from './webSathi.png';
@@ -10,6 +11,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const ref = useRef(null);
+  const pathname = usePathname();
 
   // Parallax effect setup
   const { scrollYProgress } = useScroll({
@@ -40,11 +42,30 @@ export default function Navbar() {
 
   // Modern color palette
   const colors = {
-    primary: '#1d263bff',       // Deep navy
-    secondary: '#213050ff',     // Dark slate
+    primary: '#0f172a',       // Deep navy
+    secondary: '#1e293b',     // Dark slate
     accent: '#7c3aed',        // Vibrant violet
     highlight: '#f59e0b',     // Amber
-    text: '#e1dcdcff',          // Lightest slate
+    text: '#0871e1dc',        // Light blue
+    activeText: '#15f324ff',    // White for active item
+  };
+
+  // Navigation items with their respective routes
+  const navItems = [
+    { name: 'Home', route: '/' },
+    { name: 'About', route: '/about' },
+    { name: 'Services', route: '/services' },
+    { name: 'Portfolio', route: '/portfolio' },
+    { name: 'Blog', route: '/blog' },
+    { name: 'Contact', route: '/contact' }
+  ];
+
+  // Check if a nav item is active
+  const isActive = (route) => {
+    if (route === '/') {
+      return pathname === route;
+    }
+    return pathname.startsWith(route);
   };
 
   return (
@@ -79,40 +100,52 @@ export default function Navbar() {
                   priority
                 />
               </motion.div>
-              
             </Link>
             
             {/* Desktop Navigation with floating underline */}
             <div className="hidden md:block ml-4 lg:ml-10">
               <div className="flex space-x-4 lg:space-x-8">
-                {['Home', 'About', 'Services', 'Portfolio', 'Blog', 'Contact'].map((item) => (
-                  <Link 
-                    key={item}
-                    href={`/${item.toLowerCase()}`} 
-                    className="relative px-3 py-2 text-sm font-medium group"
-                  >
-                    <motion.span 
-                      className="relative z-10"
-                      style={{ color: colors.text }}
-                      whileHover={{ color: colors.highlight }}
-                      transition={{ duration: 0.3 }}
+                {navItems.map((item) => {
+                  const active = isActive(item.route);
+                  return (
+                    <Link 
+                      key={item.name}
+                      href={item.route} 
+                      className="relative px-3 py-2 text-lg font-medium group"
                     >
-                      {item}
-                    </motion.span>
-                    <motion.div 
-                      className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent"
-                      initial={{ width: 0, opacity: 0 }}
-                      whileHover={{ width: '100%', opacity: 1 }}
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
-                    />
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent rounded-md"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 0.1 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </Link>
-                ))}
+                      <motion.span 
+                        className="relative z-10"
+                        style={{ color: active ? colors.activeText : colors.text }}
+                        whileHover={{ color: colors.highlight }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.name}
+                      </motion.span>
+                      {active && (
+                        <motion.div 
+                          className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent"
+                          initial={{ width: 0, opacity: 0 }}
+                          animate={{ width: '100%', opacity: 1 }}
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                        />
+                      )}
+                      {!active && (
+                        <motion.div 
+                          className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-500 to-transparent"
+                          initial={{ width: 0, opacity: 0 }}
+                          whileHover={{ width: '100%', opacity: 1 }}
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                        />
+                      )}
+                      <motion.div 
+                        className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-transparent rounded-md"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 0.1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -197,31 +230,46 @@ export default function Navbar() {
         style={{ backgroundColor: colors.primary }}
       >
         <div className="px-2 pt-2 pb-4 space-y-1 sm:px-3">
-          {['Home', 'About', 'Services', 'Portfolio', 'Blog', 'Contact'].map((item, index) => (
-            <motion.div
-              key={item}
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 + index * 0.05 }}
-            >
-              <Link 
-                href={`/${item.toLowerCase()}`} 
-                className="block px-3 py-3 rounded-md text-base font-medium text-white hover:bg-purple-900/30 transition-all duration-300 flex items-center"
-                onClick={toggleMenu}
+          {navItems.map((item, index) => {
+            const active = isActive(item.route);
+            return (
+              <motion.div
+                key={item.name}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 + index * 0.05 }}
               >
-                <motion.span 
-                  className="flex items-center"
-                  whileHover={{ x: 5 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
+                <Link 
+                  href={item.route} 
+                  className={`block px-3 py-3 rounded-md text-base font-medium transition-all duration-300 flex items-center ${
+                    active 
+                      ? 'text-white bg-purple-900/50' 
+                      : 'text-gray-300 hover:bg-purple-900/30'
+                  }`}
+                  onClick={toggleMenu}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                  {item}
-                </motion.span>
-              </Link>
-            </motion.div>
-          ))}
+                  <motion.span 
+                    className="flex items-center"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: 'spring', stiffness: 300 }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                    {item.name}
+                    {active && (
+                      <motion.div 
+                        className="ml-2 w-1.5 h-1.5 rounded-full bg-amber-500"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: 'spring', stiffness: 500 }}
+                      />
+                    )}
+                  </motion.span>
+                </Link>
+              </motion.div>
+            );
+          })}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
