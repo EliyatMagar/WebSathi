@@ -51,6 +51,16 @@ export default function AboutPage() {
         github: "#",
         twitter: "#"
       }
+    },
+     {
+      name: "Shreesha Thapa",
+      role: "Member",
+      bio: "Full-stack developer focused on building robust, high-performance applications.",
+      social: {
+        linkedin: "#",
+        github: "#",
+        twitter: "#"
+      }
     }
   ];
 
