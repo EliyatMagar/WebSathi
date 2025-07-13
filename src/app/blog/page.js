@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Head from 'next/head';
+import {motion} from 'framer-motion';
 
 export default function BlogPage() {
   const [blogs, setBlogs] = useState([]);
@@ -102,48 +103,153 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Head>
-        <title>Digital Marketing Insights & Tips | WebSathi Blog</title>
-        <meta name="description" content="Stay updated with the latest digital marketing trends, SEO strategies, and social media tips from WebSathi experts." />
-        <meta name="keywords" content="digital marketing, SEO, social media marketing, content marketing, PPC, WebSathi" />
-        <meta property="og:title" content="Digital Marketing Insights & Tips | WebSathi Blog" />
-        <meta property="og:description" content="Stay updated with the latest digital marketing trends from WebSathi experts." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.websathi.com/blog" />
-        <link rel="canonical" href="https://www.websathi.com/blog" />
-      </Head>
+    <Head>
+  <title>Digital Marketing Insights & Tips | WebSathi Blog</title>
+  <meta name="description" content="Stay updated with the latest digital marketing trends, SEO strategies, and social media tips from WebSathi experts." />
+  <meta name="keywords" content="digital marketing, SEO, social media marketing, content marketing, PPC, WebSathi" />
+  <meta property="og:title" content="Digital Marketing Insights & Tips | WebSathi Blog" />
+  <meta property="og:description" content="Stay updated with the latest digital marketing trends from WebSathi experts." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.websathi.com/blog" />
+  <link rel="canonical" href="https://www.websathi.com/blog" />
+</Head>
 
-      {/* Blog Header */}
-      <header className="bg-gradient-to-r from-blue-900 to-blue-700 text-white py-16 px-4">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">WebSathi Digital Marketing Blog</h1>
-          <p className="text-xl opacity-90 mb-8">Expert insights, trends, and strategies to grow your business online</p>
-          
-          {/* Search Bar */}
-          <div className="max-w-2xl mx-auto relative">
-            <input
-              type="text"
-              placeholder="Search blog posts..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              aria-label="Search blog posts"
-              className="w-full py-4 px-6 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800"
-            />
-            {searchTerm && (
-              <button 
-                type="button" 
-                onClick={() => setSearchTerm('')} 
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                aria-label="Clear search"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            )}
-          </div>
-        </div>
-      </header>
+{/* Animated Blog Header */}
+<motion.header 
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.8 }}
+  className="relative bg-white text-gray-900 py-20 px-4 overflow-hidden border-b border-gray-100"
+>
+  {/* Background elements */}
+  <div className="absolute inset-0 overflow-hidden opacity-10">
+    <motion.div
+      initial={{ x: '-10%', y: '-10%' }}
+      animate={{ x: ['-10%', '10%', '-10%'], y: ['-10%', '10%', '-10%'] }}
+      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      className="absolute top-0 left-0 w-[300px] h-[300px] rounded-full bg-blue-100 blur-[80px]"
+    />
+    <motion.div
+      initial={{ x: '80%', y: '60%' }}
+      animate={{ x: ['80%', '60%', '80%'], y: ['60%', '80%', '60%'] }}
+      transition={{ duration: 25, repeat: Infinity, ease: "linear", delay: 5 }}
+      className="absolute bottom-0 right-0 w-[400px] h-[400px] rounded-full bg-indigo-100 blur-[100px]"
+    />
+  </div>
+
+  <div className="max-w-7xl mx-auto relative z-10">
+    {/* Animated title */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-8"
+    >
+      <motion.span
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="inline-block px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium mb-6"
+      >
+        Latest Insights
+      </motion.span>
+      
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight"
+      >
+        <span className="block">WebSathi </span>
+        <motion.span 
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          Marketing Blog
+        </motion.span>
+      </motion.h1>
+      
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.8 }}
+        className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
+      >
+        Expert insights, trends, and strategies to grow your business online
+      </motion.p>
+    </motion.div>
+
+    {/* Animated Search Bar */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 1 }}
+      className="max-w-2xl mx-auto relative mt-12"
+    >
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search blog posts..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          aria-label="Search blog posts"
+          className="w-full py-4 px-6 rounded-full shadow-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-800 transition-all duration-200"
+        />
+        <button 
+          type="submit" 
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 p-2 text-gray-500 hover:text-blue-600 transition-colors"
+          aria-label="Search"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+        {searchTerm && (
+          <motion.button 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            type="button" 
+            onClick={() => setSearchTerm('')} 
+            className="absolute right-12 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Clear search"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </motion.button>
+        )}
+      </div>
+      
+      {/* Popular tags */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="flex flex-wrap justify-center gap-3 mt-6"
+      >
+        {['SEO', 'Social Media', 'Content Marketing', 'PPC', 'Analytics'].map((tag, i) => (
+          <motion.button
+            key={tag}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="px-4 py-2 bg-blue-50 text-blue-600 rounded-full text-sm font-medium hover:bg-blue-100 transition-colors"
+          >
+            #{tag}
+          </motion.button>
+        ))}
+      </motion.div>
+    </motion.div>
+  </div>
+</motion.header>
 
       {/* Category Filters */}
       <div className="max-w-6xl mx-auto px-4 py-6 overflow-x-auto">

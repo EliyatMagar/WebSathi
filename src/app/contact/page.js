@@ -1,6 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from "react-icons/fi";
+import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle, FiArrowRight } from "react-icons/fi";
 import { useState } from "react";
 
 export default function ContactPage() {
@@ -62,38 +62,161 @@ export default function ContactPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 to-indigo-800 text-white overflow-hidden min-h-[50vh] flex items-center">
-        <div className="absolute inset-0 opacity-20">
-          <motion.div
-            animate={{
-              x: [0, 100, 0],
-              y: [0, -50, 0],
-            }}
-            transition={{
-              duration: 15,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-20 left-20 w-40 h-40 rounded-full bg-blue-500 blur-3xl"
-          ></motion.div>
-        </div>
-        
-        <div className="mx-auto max-w-[1240px] w-full px-6 py-24 md:py-32 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-4xl"
+     <section className="relative bg-white overflow-hidden min-h-[60vh] flex items-center border-b border-gray-100">
+  {/* Floating gradient shapes */}
+  <div className="absolute inset-0 overflow-hidden opacity-10">
+    {[...Array(5)].map((_, i) => (
+      <motion.div
+        key={i}
+        initial={{
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          scale: Math.random() * 0.5 + 0.5
+        }}
+        animate={{
+          x: [null, Math.random() * 100 - 50],
+          y: [null, Math.random() * 100 - 50],
+          rotate: [0, Math.random() * 360]
+        }}
+        transition={{
+          duration: Math.random() * 20 + 15,
+          repeat: Infinity,
+          repeatType: "reverse",
+          ease: "linear"
+        }}
+        className={`absolute rounded-lg ${i % 3 === 0 ? 'bg-blue-100' : i % 2 === 0 ? 'bg-indigo-100' : 'bg-cyan-100'} opacity-70`}
+        style={{
+          width: `${Math.random() * 300 + 100}px`,
+          height: `${Math.random() * 300 + 100}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+          filter: 'blur(60px)',
+          borderRadius: `${Math.random() * 50}% ${Math.random() * 50}%`
+        }}
+      />
+    ))}
+  </div>
+
+  {/* Digital particles */}
+  <div className="absolute inset-0 overflow-hidden">
+    {[...Array(30)].map((_, i) => (
+      <motion.div
+        key={i}
+        initial={{
+          x: Math.random() * 100,
+          y: Math.random() * 100,
+          opacity: 0
+        }}
+        animate={{
+          y: [0, Math.random() * 100 - 50],
+          x: [0, Math.random() * 100 - 50],
+          opacity: [0, 0.4, 0]
+        }}
+        transition={{
+          duration: 10 + Math.random() * 20,
+          repeat: Infinity,
+          delay: Math.random() * 5
+        }}
+        className="absolute rounded-full bg-blue-400"
+        style={{
+          width: `${Math.random() * 3 + 1}px`,
+          height: `${Math.random() * 3 + 1}px`,
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`
+        }}
+      />
+    ))}
+  </div>
+
+  {/* Content */}
+  <div className="mx-auto max-w-7xl w-full px-6 py-16 md:py-24 relative z-10">
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="max-w-4xl"
+    >
+      {/* Animated badge */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-6"
+      >
+        <motion.span 
+          animate={{ scale: [1, 1.1, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-2 h-2 rounded-full bg-blue-500 mr-2"
+        />
+        <span className="text-sm font-medium text-blue-600">Get in touch</span>
+      </motion.div>
+
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900"
+      >
+        Let's <motion.span 
+          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600"
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          Connect
+        </motion.span>
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, delay: 0.8 }}
+        className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl"
+      >
+        Have a project in mind or want to learn more about our services? Reach out to us - we'd love to hear from you.
+      </motion.p>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5, delay: 1 }}
+        className="flex flex-wrap gap-4"
+      >
+        <motion.button
+          whileHover={{ 
+            scale: 1.05,
+            boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)"
+          }}
+          whileTap={{ scale: 0.95 }}
+          className="px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-md flex items-center gap-2 group"
+        >
+          <span>Contact Us</span>
+          <motion.span
+            animate={{ x: [0, 5, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="inline-block"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              Let's <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-400">Connect</span>
-            </h1>
-            <p className="text-xl text-blue-100 mb-8 max-w-3xl">
-              Have a project in mind or want to learn more about our services? Reach out to us - we'd love to hear from you.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+            <FiArrowRight className="w-5 h-5" />
+          </motion.span>
+        </motion.button>
+
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-8 py-4 text-lg font-semibold rounded-full bg-white text-gray-800 border border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-sm flex items-center gap-2"
+        >
+          <FiMail className="w-5 h-5 text-blue-600" />
+          <span>Email Us</span>
+        </motion.button>
+      </motion.div>
+    </motion.div>
+  </div>
+</section>
 
       {/* Contact Content */}
       <section className="py-16 md:py-24">

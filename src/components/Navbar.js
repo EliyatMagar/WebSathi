@@ -84,12 +84,7 @@ export default function Navbar() {
           <div className="flex items-center">
             <Link href="/" className="flex-shrink-0 flex items-center group">
               <motion.div 
-                whileHover={{ 
-                  scale: 1.05,
-                  rotateY: 10,
-                  boxShadow: `0 10px 25px -5px rgba(124, 58, 237, 0.4)`
-                }}
-                transition={{ type: 'spring', stiffness: 300 }}
+               
                 className="relative h-42 w-42 mr-2 rounded-md overflow-hidden"
               >
                 <Image 
