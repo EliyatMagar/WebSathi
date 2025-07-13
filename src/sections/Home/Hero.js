@@ -54,7 +54,7 @@ const AnimatedBackground = () => {
         content = ['★', '✧', '✦', '✹', '✺', '✼', '❖', '✪'][Math.floor(Math.random() * 8)];
         className = 'text-cyan-300';
       } else {
-        className = 'bg-white opacity-30 rounded-full';
+        className = 'bg-gray-800 opacity-30 rounded-full';
       }
       
       return {
@@ -75,7 +75,7 @@ const AnimatedBackground = () => {
   }, []);
 
   return (
-    <div className="absolute inset-0 w-full h-full overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800">
+    <div className="absolute inset-0 w-full h-full overflow-hidden bg-white">
       {/* Floating Particles */}
       {particles.map(particle => (
         <motion.div
@@ -109,7 +109,7 @@ const AnimatedBackground = () => {
       <div className="absolute inset-0 opacity-10">
         <div className="grid grid-cols-12 grid-rows-12 h-full w-full">
           {Array.from({ length: 144 }).map((_, i) => (
-            <div key={i} className="border border-gray-600"></div>
+            <div key={i} className="border border-gray-300"></div>
           ))}
         </div>
       </div>
@@ -225,7 +225,7 @@ export default function Hero() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
                 >
-                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight drop-shadow-lg">
+                  <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight drop-shadow-lg">
                     {slide.title.split(slide.highlight)[0]}
                     <motion.span 
                       className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 drop-shadow-md"
@@ -239,7 +239,7 @@ export default function Hero() {
                   </h1>
                   
                   <motion.p 
-                    className="text-lg sm:text-xl md:text-2xl text-gray-100 mb-8 sm:mb-10 max-w-3xl mx-auto drop-shadow-lg"
+                    className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8 sm:mb-10 max-w-3xl mx-auto drop-shadow-lg"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
@@ -266,18 +266,24 @@ export default function Hero() {
                       />
                     </Link>
                     
-                    <Link 
-                      href="/contact" 
-                      className="relative px-8 py-3.5 text-sm sm:text-base font-semibold rounded-full bg-transparent text-white border-2 border-white hover:bg-white hover:bg-opacity-10 transition-all duration-300 group overflow-hidden"
-                    >
-                      <span className="relative z-10">Free Consultation</span>
-                      <motion.span 
-                        className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"
-                        initial={{ x: '-100%' }}
-                        whileHover={{ x: '0%' }}
-                        transition={{ duration: 0.6 }}
-                      />
-                    </Link>
+                   <Link 
+  href="/contact" 
+  className="relative px-8 py-3.5 text-sm sm:text-base font-semibold rounded-full bg-transparent text-gray-900 border-2 border-gray-900 hover:bg-opacity-5 transition-all duration-300 group overflow-hidden"
+>
+  <span className="relative z-10">Free Consultation</span>
+  <motion.span 
+    className="absolute inset-0 bg-gray-900 opacity-0 group-hover:opacity-5 transition-opacity duration-300 z-0"
+    initial={{ scaleX: 0, originX: 0 }}
+    whileHover={{ 
+      scaleX: 1,
+      opacity: 0.1,
+      transition: { 
+        duration: 0.4,
+        ease: [0.25, 0.1, 0.25, 1]
+      } 
+    }}
+  />
+</Link>
                   </motion.div>
                 </motion.div>
               </motion.div>
@@ -299,8 +305,8 @@ export default function Hero() {
           }}
           className="flex flex-col items-center"
         >
-          <span className="text-white text-xs mb-2 drop-shadow-md">Scroll Down</span>
-          <div className="w-5 h-8 border-2 border-white rounded-full">
+          <span className="text-gray-900 text-xs mb-2 drop-shadow-md">Scroll Down</span>
+          <div className="w-5 h-8 border-2 border-gray-900 rounded-full">
             <motion.div
               animate={{
                 y: [0, 4, 0],
@@ -311,7 +317,7 @@ export default function Hero() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="w-1 h-2 bg-white rounded-full mx-auto mt-1"
+              className="w-1 h-2 bg-gray-900 rounded-full mx-auto mt-1"
             ></motion.div>
           </div>
         </motion.div>
@@ -319,18 +325,18 @@ export default function Hero() {
 
       {/* Digital agency badge */}
       <motion.div 
-        className="absolute top-6 right-6 z-10 bg-black bg-opacity-40 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-600"
+        className="absolute top-6 right-6 z-10 bg-white bg-opacity-40 backdrop-blur-sm px-4 py-2 rounded-full border border-gray-300"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.5 }}
       >
         <div className="flex items-center">
           <motion.div 
-            className="w-2 h-2 bg-green-400 rounded-full mr-2"
+            className="w-2 h-2 bg-green-600 rounded-full mr-2"
             animate={{ opacity: [0.6, 1, 0.6] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           />
-          <span className="text-sm text-white font-medium">Digital Agency</span>
+          <span className="text-sm text-gray-900 font-medium">Digital Agency</span>
         </div>
       </motion.div>
     </section>

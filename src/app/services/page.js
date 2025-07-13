@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { FiCode, FiSearch, FiPenTool, FiShare2, FiBarChart2, FiCheck,FiArrowRight, FiPlayCircle } from "react-icons/fi";
 
 export default function ServicePage() {
@@ -42,156 +43,154 @@ export default function ServicePage() {
     }
   ];
 
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"]
+  });
+
+  // Parallax values for different elements
+  const yBg = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const yText = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const yImage = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-     <section className="relative bg-white overflow-hidden min-h-[60vh] md:min-h-[80vh] flex items-center border-b border-gray-100">
-  {/* Animated floating elements */}
-  <div className="absolute inset-0 overflow-hidden">
-    {[...Array(6)].map((_, i) => (
-      <motion.div
-        key={i}
-        initial={{ 
-          opacity: 0.05,
-          y: Math.random() * 300,
-          x: Math.random() * 500 - 100,
-          scale: Math.random() * 0.5 + 0.5
-        }}
-        animate={{ 
-          y: [0, Math.random() * 100 - 50],
-          x: [0, Math.random() * 100 - 50],
-          rotate: [0, Math.random() * 360]
-        }}
-        transition={{
-          duration: Math.random() * 20 + 10,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-          delay: Math.random() * 5
-        }}
-        className="absolute rounded-full bg-gradient-to-r from-blue-100 to-indigo-100"
-        style={{
-          width: `${Math.random() * 200 + 100}px`,
-          height: `${Math.random() * 200 + 100}px`,
-          filter: 'blur(40px)'
-        }}
-      />
-    ))}
-  </div>
-
-  {/* Main content */}
-  <div className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32 relative z-10">
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="text-center md:text-left"
-    >
-      {/* Animated badge */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
-        className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-6"
-      >
-        <motion.span 
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-2 h-2 rounded-full bg-blue-500 mr-2"
-        />
-        <span className="text-sm font-medium text-blue-600">We're accepting new projects</span>
-      </motion.div>
-
-      {/* Animated headline with word-by-word reveal */}
-      <div className="overflow-hidden">
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+    <div className="bg-[#c7c7d8ff]" ref={containerRef}>
+      {/* Hero Section with Parallax */}
+      <section className="relative bg-white overflow-hidden min-h-[60vh] md:min-h-[80vh] flex items-center border-b border-gray-100">
+        {/* Parallax background elements */}
+        <motion.div 
+          style={{ y: yBg }}
+          className="absolute inset-0 overflow-hidden"
         >
-          <span className="block">Transform Your </span>
-          <motion.span 
-            className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.6 }}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{ 
+                opacity: 0.05,
+                y: Math.random() * 300,
+                x: Math.random() * 500 - 100,
+                scale: Math.random() * 0.5 + 0.5
+              }}
+              animate={{ 
+                y: [0, Math.random() * 100 - 50],
+                x: [0, Math.random() * 100 - 50],
+                rotate: [0, Math.random() * 360]
+              }}
+              transition={{
+                duration: Math.random() * 20 + 10,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: Math.random() * 5
+              }}
+              className="absolute rounded-full bg-gradient-to-r from-blue-100 to-indigo-100"
+              style={{
+                width: `${Math.random() * 200 + 100}px`,
+                height: `${Math.random() * 200 + 100}px`,
+                filter: 'blur(40px)'
+              }}
+            />
+          ))}
+        </motion.div>
+
+        {/* Main content with parallax text */}
+        <motion.div
+          style={{ y: yText }}
+          className="mx-auto max-w-7xl px-6 py-16 md:py-24 lg:py-32 relative z-10"
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-center md:text-left"
           >
-            Digital Presence
-          </motion.span>
-        </motion.h1>
-      </div>
+            {/* Animated badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-6"
+            >
+              <motion.span 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 rounded-full bg-blue-500 mr-2"
+              />
+              <span className="text-sm font-medium text-blue-600">We're accepting new projects</span>
+            </motion.div>
 
-      {/* Animated paragraph with typing effect */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 0.8 }}
-        viewport={{ once: true }}
-        className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto md:mx-0"
-      >
-        Comprehensive solutions to elevate your brand and accelerate growth in the digital landscape.
-      </motion.p>
+            {/* Animated headline */}
+            <div className="overflow-hidden">
+              <motion.h1
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+              >
+                <span className="block">Transform Your </span>
+                <motion.span 
+                  className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  Digital Presence
+                </motion.span>
+              </motion.h1>
+            </div>
 
-      {/* Animated CTA button */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, delay: 1 }}
-        viewport={{ once: true }}
-        className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-      >
-        <motion.button
-          whileHover={{ 
-            scale: 1.05,
-            boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)"
-          }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md flex items-center gap-2 group"
-        >
-          <span>Get Started</span>
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="inline-block"
-          >
-            <FiArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.8 }}
+              viewport={{ once: true }}
+              className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto md:mx-0"
+            >
+              Comprehensive solutions to elevate your brand and accelerate growth in the digital landscape.
+            </motion.p>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-4 text-lg font-semibold rounded-full bg-white text-gray-800 border border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-sm flex items-center gap-2"
-        >
-          <FiPlayCircle className="w-5 h-5 text-blue-600" />
-          <span>Watch Demo</span>
-        </motion.button>
-      </motion.div>
-    </motion.div>
-  </div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 1 }}
+              viewport={{ once: true }}
+              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            >
+              <motion.button
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-md flex items-center gap-2 group"
+              >
+                <span>Get Started</span>
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="inline-block"
+                >
+                  <FiArrowRight className="w-5 h-5" />
+                </motion.span>
+              </motion.button>
 
-  {/* Floating mockup image (optional) */}
-  <motion.div
-    initial={{ opacity: 0, y: 100 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, delay: 0.6 }}
-    viewport={{ once: true }}
-    className="hidden lg:block absolute right-0 bottom-0 w-1/3 max-w-xl pointer-events-none"
-  >
-    <div className="relative">
-      <div className="absolute inset-0 bg-gradient-to-l from-white via-white/90 to-transparent w-1/3" />
-      <img 
-        src="/images/hero-mockup.png" 
-        alt="Digital device mockup"
-        className="w-full h-auto"
-      />
-    </div>
-  </motion.div>
-</section>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-8 py-4 text-lg font-semibold rounded-full bg-white text-gray-800 border border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-sm flex items-center gap-2"
+              >
+                <FiPlayCircle className="w-5 h-5 text-blue-600" />
+                <span>Watch Demo</span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+
+      </section>
 
       {/* Services Grid */}
       <section className="py-16 md:py-24 bg-gray-50">
