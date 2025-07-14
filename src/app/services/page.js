@@ -2,46 +2,10 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { FiCode, FiSearch, FiPenTool, FiShare2, FiBarChart2, FiCheck,FiArrowRight, FiPlayCircle } from "react-icons/fi";
+import Link from "next/link";
+import {services} from "@/lib/services";
 
 export default function ServicePage() {
-  const services = [
-    {
-      title: "Web Design & Development",
-      description: "Custom, responsive websites that convert visitors into customers with modern technologies.",
-      icon: <FiCode className="w-6 h-6" />,
-      features: ["UI/UX Design", "Frontend Development", "Backend Development", "E-commerce Solutions"]
-    },
-    {
-      title: "SEO Optimization",
-      description: "Higher rankings and organic traffic growth with proven strategies tailored to your business.",
-      icon: <FiSearch className="w-6 h-6" />,
-      features: ["Keyword Research", "On-Page SEO", "Technical SEO", "Content Strategy"]
-    },
-    {
-      title: "Content Creation",
-      description: "Compelling content that engages your audience and builds brand authority.",
-      icon: <FiPenTool className="w-6 h-6" />,
-      features: ["Blog Writing", "Video Production", "Graphic Design", "Social Media Content"]
-    },
-    {
-      title: "Social Media Management",
-      description: "Strategic social presence that grows your brand and fosters community engagement.",
-      icon: <FiShare2 className="w-6 h-6" />,
-      features: ["Content Calendar", "Community Management", "Paid Advertising", "Analytics & Reporting"]
-    },
-    {
-      title: "Digital Marketing Strategy",
-      description: "Data-driven campaigns that deliver measurable results and maximize ROI.",
-      icon: <FiBarChart2 className="w-6 h-6" />,
-      features: ["Campaign Planning", "Audience Targeting", "Conversion Optimization", "Performance Tracking"]
-    },
-    {
-      title: "Brand Identity",
-      description: "Comprehensive branding solutions that communicate your unique value proposition.",
-      icon: <FiPenTool className="w-6 h-6" />,
-      features: ["Logo Design", "Brand Guidelines", "Visual Identity", "Brand Messaging"]
-    }
-  ];
 
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -211,9 +175,9 @@ export default function ServicePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
+            {services.map((service,index) => (
               <motion.div
-                key={index}
+                key={service.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -10 }}
@@ -237,10 +201,12 @@ export default function ServicePage() {
                     ))}
                   </ul>
                   
-                  <button className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 flex items-center">
+                  <Link 
+                  href={`/services/${service.slug}`}
+                  className="text-blue-600 hover:text-blue-800 font-medium transition-colors duration-300 flex items-center">
                     Learn more
                     <FiArrowRight className="w-4 h-4 ml-2" />
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             ))}

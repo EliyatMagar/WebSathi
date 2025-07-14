@@ -23,11 +23,11 @@ export default function AboutPage() {
     { value: "5+", label: "Years Experience", icon: <FiAward className="w-6 h-6" /> }
   ];
 
-  const teamMembers = [
+ const teamMembers = [
     {
       name: "Saurav Aryal",
-      role: "CEO & Founder",
-      bio: "Visionary leader with expertise in digital strategy and business growth.",
+      role: "Project Lead & Digital Advocate",
+      bio: "BSc CSIT student at ASCOL driving WebSathi’s vision to empower society with digital marketing knowledge. Passionate about tech for social impact.",
       social: {
         linkedin: "#",
         github: "#",
@@ -36,8 +36,8 @@ export default function AboutPage() {
     },
     {
       name: "Eliyat Thapa Magar",
-      role: "CTO & Co-Founder",
-      bio: "Technology expert specializing in scalable architectures and innovative solutions.",
+      role: "Tech Architect & Systems Builder",
+      bio: "ASCOL CSIT student crafting scalable solutions for WebSathi. Believes in open-source tools to democratize digital education.",
       social: {
         linkedin: "#",
         github: "#",
@@ -46,8 +46,8 @@ export default function AboutPage() {
     },
     {
       name: "Aayush Aryal",
-      role: "Lead Designer",
-      bio: "Creative director with an eye for stunning UI/UX and brand identity.",
+      role: "Creative Designer & UX Strategist",
+      bio: "Merges design thinking with digital marketing to make WebSathi’s content visually compelling. CSIT student at ASCOL.",
       social: {
         linkedin: "#",
         github: "#",
@@ -56,8 +56,8 @@ export default function AboutPage() {
     },
     {
       name: "Binod Syangtan",
-      role: "Senior Developer & Co-Founder",
-      bio: "Full-stack developer focused on building robust, high-performance applications.",
+      role: "Full-Stack Developer & Automation Specialist",
+      bio: "Builds WebSathi’s platforms with a focus on accessibility. ASCOL CSIT student advocating for low-code digital tools.",
       social: {
         linkedin: "#",
         github: "#",
@@ -65,9 +65,9 @@ export default function AboutPage() {
       }
     },
     {
-      name: "Shreesha Thapa",
-      role: "Member",
-      bio: "Full-stack developer focused on building robust, high-performance applications.",
+      name: "[Optional Member]",
+      role: "Content Strategist & Outreach Coordinator",
+      bio: "Bridges WebSathi’s message to local communities. CSIT student specializing in SEO and grassroots digital awareness.",
       social: {
         linkedin: "#",
         github: "#",

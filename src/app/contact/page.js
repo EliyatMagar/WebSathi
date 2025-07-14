@@ -410,16 +410,16 @@ export default function ContactPage() {
       <section className="py-0 md:py-0 bg-gray-50">
         <div className="mx-auto max-w-[1240px] w-full px-0">
           <div className="h-96 w-full">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215256018607!2d-73.98784492416462!3d40.74844097138985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1623861256843!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              className="filter grayscale hover:grayscale-0 transition-all duration-500"
-            ></iframe>
-          </div>
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.456205029884!2d85.3202503150566!3d27.70524488279332!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198a307baabf%3A0xb5137c1bf18db1ea!2sKathmandu%2044600!5e0!3m2!1sen!2snp!4v1623861256843!5m2!1sen!2snp"
+    width="100%"
+    height="100%"
+    style={{ border: 0 }}
+    allowFullScreen=""
+    loading="lazy"
+    className="filter grayscale hover:grayscale-0 transition-all duration-500"
+  ></iframe>
+</div>
         </div>
       </section>
 

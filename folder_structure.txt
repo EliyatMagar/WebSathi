@@ -1,0 +1,50 @@
+my-digital-agency/
+│
+├── public/                    # Static assets (images, fonts, etc.)
+│   └── images/
+│
+├── src/
+│   ├── app/                   # App Router entry point
+│   │   ├── layout.js          # Global layout (wraps all pages)
+│   │   ├── page.js            # Home page
+│   │   ├── about/
+│   │   │   └── page.js        # About page
+│   │   ├── services/
+│   │   │   └── page.js        # Services page
+│   │   ├── portfolio/
+│   │   │   └── page.js        # Portfolio page
+│   │   ├── contact/
+│   │   │   └── page.js        # Contact page
+│   │   └── globals.css        # Global CSS import (optional)
+│   │
+│   ├── components/            # Shared UI components
+│   │   ├── Navbar.js
+│   │   ├── Footer.js
+│   │   └── Button.js
+│   │
+│   ├── layouts/               # Optional advanced layout patterns
+│   │   └── DefaultLayout.js
+│   │
+│   ├── sections/              # Page-specific sections
+│   │   ├── Home/
+│   │   │   ├── Hero.js
+│   │   │   └── ServicesOverview.js
+│   │   └── About/
+│   │       └── TeamSection.js
+│   │
+│   ├── lib/                   # Helper functions / logic
+│   │   └── sendEmail.js
+│   │
+│   ├── data/                  # Static JSON or JS data
+│   │   ├── services.js
+│   │   └── testimonials.js
+│   │
+│   └── styles/                # Tailwind or custom CSS
+│       ├── globals.css
+│       └── tailwind.css
+│
+├── .gitignore
+├── package.json
+├── tailwind.config.js         # Tailwind CSS config (if used)
+├── postcss.config.js
+└── next.config.js
