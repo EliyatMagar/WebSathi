@@ -83,30 +83,33 @@ export default function Testimonials() {
       </Head>
 
       {/* Parallax Hero Section */}
-      <div className="relative h-[70vh] overflow-hidden" ref={ref}>
-        <motion.div 
-          className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-cover bg-center"
-          style={{
-            y: yBg,
-            opacity: opacityBg,
-            backgroundImage: "url('/images/testimonials-bg.jpg')" // Replace with your image
-          }}
-        />
-        
-        <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-          <motion.div 
-            className="text-center px-4"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">Client Success Stories</h1>
-            <p className="text-xl md:text-2xl text-white max-w-2xl mx-auto">
-              Don't just take our word for it. Hear what our clients have to say about working with us.
-            </p>
-          </motion.div>
-        </div>
-      </div>
+      <div className="relative h-[40vh] min-h-[200px] overflow-hidden" ref={ref}>
+  <motion.div 
+    className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 bg-cover bg-center"
+    style={{
+      y: yBg,
+      opacity: opacityBg,
+      backgroundImage: "url('/images/testimonials1-bg.png')" 
+    }}
+  />
+  
+  {/* Gradient overlay instead of black */}
+  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/70 via-gray-900/40 to-transparent flex items-center justify-center">
+    <motion.div 
+      className="text-center px-4 sm:px-6 lg:px-8 w-full"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+    >
+      <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 px-4">
+        Client Success Stories
+      </h1>
+      <p className="text-lg sm:text-xl md:text-2xl text-white/90 max-w-2xl mx-auto px-4">
+        Don't just take our word for it. Hear what our clients have to say about working with us.
+      </p>
+    </motion.div>
+  </div>
+</div>
 
       {/* Testimonials Section */}
       <div className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">

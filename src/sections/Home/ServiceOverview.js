@@ -62,7 +62,7 @@ export default function ServiceOverview() {
       <div className="absolute top-20 left-10 w-32 h-32 rounded-full bg-blue-200 opacity-20 blur-3xl -z-10" />
       <div className="absolute bottom-20 right-10 w-40 h-40 rounded-full bg-cyan-200 opacity-20 blur-3xl -z-10" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="mx-auto max-w-[1250px] px-4 sm:px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
