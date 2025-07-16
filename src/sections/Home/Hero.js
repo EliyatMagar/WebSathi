@@ -261,7 +261,7 @@ export default function Hero() {
                   className="relative px-6 py-3 sm:px-8 sm:py-3.5 text-sm sm:text-base font-semibold rounded-full bg-white/10 backdrop-blur-sm border-2 border-blue-400/30 text-blue-700 hover:bg-blue-500/10 hover:border-blue-500/50 transition-all duration-300 group overflow-hidden shadow-md hover:shadow-lg"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
-                    Free Consultation
+                    Contact Us
                     <motion.span
                       className="text-lg"
                       animate={{ scale: [1, 1.1, 1] }}

@@ -1,306 +1,229 @@
 "use client";
-import { motion } from "framer-motion";
-import { useState } from "react";
-import { FiExternalLink, FiGithub, FiFilter, FiX, FiArrowRight , FiChevronDown} from "react-icons/fi";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
+import { FiExternalLink, FiGithub, FiFilter, FiArrowRight, FiChevronDown } from "react-icons/fi";
 import Image from "next/image";
-
-// Portfolio data
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    category: "web",
-    description: "A full-featured online store with custom checkout and inventory management.",
-    image: "/images/ecommerce-project.jpg",
-    tags: ["React", "Node.js", "MongoDB"],
-    links: {
-      live: "https://example.com",
-      github: "https://github.com/example"
-    }
-  },
-  {
-    id: 2,
-    title: "Corporate Website",
-    category: "web",
-    description: "Modern responsive website for a financial services company.",
-    image: "/images/corporate-project.jpg",
-    tags: ["Next.js", "Tailwind CSS", "Contentful"],
-    links: {
-      live: "https://example.com",
-      github: "https://github.com/example"
-    }
-  },
-  {
-    id: 3,
-    title: "Mobile Banking App",
-    category: "mobile",
-    description: "Secure banking application with biometric authentication.",
-    image: "/images/banking-app.jpg",
-    tags: ["React Native", "Firebase", "AWS"],
-    links: {
-      live: "https://example.com",
-      github: "https://github.com/example"
-    }
-  },
-  {
-    id: 4,
-    title: "Brand Identity",
-    category: "design",
-    description: "Complete visual identity for a health tech startup.",
-    image: "/images/branding-project.jpg",
-    tags: ["Logo Design", "Brand Guidelines", "Packaging"],
-    links: {
-      live: "https://example.com",
-      github: ""
-    }
-  },
-  {
-    id: 5,
-    title: "SaaS Dashboard",
-    category: "web",
-    description: "Analytics dashboard with real-time data visualization.",
-    image: "/images/saas-project.jpg",
-    tags: ["TypeScript", "D3.js", "GraphQL"],
-    links: {
-      live: "https://example.com",
-      github: "https://github.com/example"
-    }
-  },
-  {
-    id: 6,
-    title: "Fitness App",
-    category: "mobile",
-    description: "Workout tracking application with AI recommendations.",
-    image: "/images/fitness-app.jpg",
-    tags: ["Flutter", "Firebase", "TensorFlow"],
-    links: {
-      live: "https://example.com",
-      github: "https://github.com/example"
-    }
-  }
-];
-
-const categories = ["all", "web", "mobile", "design"];
+import Link from "next/link";
+import { projects, categories } from "./data";
 
 export default function PortfolioPage() {
   const [activeCategory, setActiveCategory] = useState("all");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: containerRef });
+  const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
 
   const filteredProjects = activeCategory === "all" 
     ? projects 
     : projects.filter(project => project.category === activeCategory);
 
   return (
-    <div className="bg-white">
-      {/* Hero Section */}
-     <section className="relative bg-white overflow-hidden min-h-[60vh] flex items-center border-b border-gray-100">
-  {/* Floating abstract shapes */}
-  <div className="absolute inset-0 overflow-hidden opacity-30">
-    {[...Array(6)].map((_, i) => (
-      <motion.div
-        key={i}
-        initial={{
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          scale: Math.random() * 0.5 + 0.5
-        }}
-        animate={{
-          x: [null, Math.random() * 100 - 50],
-          y: [null, Math.random() * 100 - 50],
-          rotate: [0, Math.random() * 180]
-        }}
-        transition={{
-          duration: Math.random() * 20 + 15,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "linear"
-        }}
-        className={`absolute rounded-lg ${i % 3 === 0 ? 'bg-blue-100' : i % 2 === 0 ? 'bg-indigo-100' : 'bg-cyan-100'} opacity-50`}
-        style={{
-          width: `${Math.random() * 300 + 100}px`,
-          height: `${Math.random() * 300 + 100}px`,
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          filter: 'blur(60px)',
-          borderRadius: `${Math.random() * 50}% ${Math.random() * 50}%`
-        }}
-      />
-    ))}
-  </div>
-
-  {/* Digital grid overlay */}
-  <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] opacity-20"></div>
-
-  {/* Content */}
-  <div className="container mx-auto px-6 py-16 md:py-24 relative z-10">
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.8 }}
-      className="max-w-4xl text-center mx-auto"
-    >
-      {/* Animated badge */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-6"
-      >
-        <motion.span 
-          animate={{ scale: [1, 1.1, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="w-2 h-2 rounded-full bg-blue-500 mr-2"
-        />
-        <span className="text-sm font-medium text-blue-600">Case Studies</span>
-      </motion.div>
-
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay: 0.4 }}
-        className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900"
-      >
-        Our <motion.span 
-          className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
+    <div className="bg-white overflow-hidden" ref={containerRef}>
+      {/* Hero Section with Parallax */}
+      <section className="relative bg-white min-h-screen flex items-center border-b border-gray-100 overflow-hidden">
+        {/* Parallax Background Elements */}
+        <motion.div 
+          style={{ y }}
+          className="absolute inset-0 overflow-hidden opacity-30"
         >
-          Portfolio
-        </motion.span>
-      </motion.h1>
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              initial={{
+                x: Math.random() * 100,
+                y: Math.random() * 100,
+                scale: Math.random() * 0.5 + 0.5,
+                rotate: Math.random() * 360
+              }}
+              animate={{
+                x: [null, Math.random() * 200 - 100],
+                y: [null, Math.random() * 200 - 100],
+                rotate: [0, Math.random() * 180]
+              }}
+              transition={{
+                duration: Math.random() * 20 + 15,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "linear"
+              }}
+              className={`absolute rounded-lg ${i % 3 === 0 ? 'bg-blue-100' : i % 2 === 0 ? 'bg-indigo-100' : 'bg-cyan-100'} opacity-50`}
+              style={{
+                width: `${Math.random() * 400 + 100}px`,
+                height: `${Math.random() * 400 + 100}px`,
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                filter: 'blur(80px)',
+                borderRadius: `${Math.random() * 50}% ${Math.random() * 50}%`
+              }}
+            />
+          ))}
+        </motion.div>
 
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: 0.8 }}
-        className="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
-      >
-        Explore our collection of successful projects and see how we've helped businesses grow.
-      </motion.p>
+        {/* Digital grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:24px_24px] opacity-20"></div>
 
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 1 }}
-        className="flex flex-wrap justify-center gap-4"
-      >
-        <motion.button
-          whileHover={{ 
-            scale: 1.05,
-            boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)"
-          }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-3.5 text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-md flex items-center gap-2 group"
-        >
-          <span>View All Projects</span>
-          <motion.span
-            animate={{ x: [0, 5, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="inline-block"
+        {/* Content */}
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl relative z-10 py-24">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl text-center mx-auto"
           >
-            <FiArrowRight className="w-5 h-5" />
-          </motion.span>
-        </motion.button>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 mb-6"
+            >
+              <motion.span 
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 rounded-full bg-blue-500 mr-2"
+              />
+              <span className="text-sm font-medium text-blue-600">Featured Work</span>
+            </motion.div>
 
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="px-8 py-3.5 text-lg font-semibold rounded-full bg-white text-gray-800 border border-gray-200 hover:border-gray-300 transition-all duration-300 shadow-sm flex items-center gap-2"
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-gray-900"
+            >
+              Our <motion.span 
+                className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-600"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                Creative Portfolio
+              </motion.span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+              className="text-lg sm:text-xl text-gray-600 mb-8 max-w-3xl mx-auto"
+            >
+              Discover our collection of innovative projects that transform ideas into digital experiences.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 1 }}
+              className="flex flex-wrap justify-center gap-4"
+            >
+              <motion.button
+                whileHover={{ 
+                  scale: 1.05,
+                  boxShadow: "0 10px 25px -5px rgba(37, 99, 235, 0.3)"
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-6 sm:px-8 py-3 sm:py-3.5 text-base sm:text-lg font-semibold rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:from-blue-700 hover:to-cyan-700 transition-all duration-300 shadow-md flex items-center gap-2 group"
+              >
+                <span>View Projects</span>
+                <motion.span
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="inline-block"
+                >
+                  <FiArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                </motion.span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Scrolling indicator */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
         >
-          <FiFilter className="w-5 h-5 text-blue-600" />
-          <span>Filter Work</span>
-        </motion.button>
-      </motion.div>
-    </motion.div>
-  </div>
-
-  {/* Scrolling indicator */}
-  <motion.div 
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    transition={{ delay: 1.5 }}
-    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-  >
-    <motion.div
-      animate={{ y: [0, 10, 0] }}
-      transition={{ duration: 2, repeat: Infinity }}
-      className="flex flex-col items-center"
-    >
-      <span className="text-sm text-gray-500 mb-2">Scroll to explore</span>
-      <FiChevronDown className="w-6 h-6 text-gray-400" />
-    </motion.div>
-  </motion.div>
-</section>
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="flex flex-col items-center"
+          >
+            <span className="text-sm text-gray-500 mb-2">Scroll to explore</span>
+            <FiChevronDown className="w-6 h-6 text-gray-400" />
+          </motion.div>
+        </motion.div>
+      </section>
 
       {/* Portfolio Content */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6">
+      <section className="py-16 md:py-24 bg-gradient-to-b from-white to-gray-50">
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl">
           {/* Filter Controls */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-3 mb-16"
+            className="flex flex-wrap justify-center gap-3 mb-12 sm:mb-16"
           >
             {categories.map((category) => (
-              <button
+              <motion.button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`px-5 py-2 rounded-full capitalize flex items-center gap-2 transition-all ${
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`px-4 sm:px-5 py-1.5 sm:py-2 rounded-full capitalize flex items-center gap-2 transition-all text-sm sm:text-base ${
                   activeCategory === category
                     ? "bg-blue-600 text-white shadow-lg"
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
-                {activeCategory === category ? <FiFilter className="w-4 h-4" /> : null}
+                {activeCategory === category ? <FiFilter className="w-3 h-3 sm:w-4 sm:h-4" /> : null}
                 {category}
-              </button>
+              </motion.button>
             ))}
           </motion.div>
 
           {/* Projects Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {filteredProjects.map((project) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, margin: "0px 0px -100px 0px" }}
                 transition={{ duration: 0.5 }}
-                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
+                whileHover={{ y: -10 }}
+                className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 group"
               >
-                <div className="relative h-60 overflow-hidden">
+                <div className="relative h-60 sm:h-72 overflow-hidden">
                   <Image
                     src={project.image}
                     alt={project.title}
                     fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                    <button 
-                      onClick={() => setSelectedProject(project)}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                    <Link 
+                      href={`/portfolio/${project.id}`}
                       className="px-4 py-2 bg-white text-gray-900 rounded-lg font-medium hover:bg-gray-100 transition-colors"
                     >
-                      View Details
-                    </button>
+                      View Case Study
+                    </Link>
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <div className="flex justify-between items-start mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">{project.title}</h3>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-900">{project.title}</h3>
                     <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full capitalize">
                       {project.category}
                     </span>
                   </div>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <p className="text-gray-600 mb-4 text-sm sm:text-base">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
                       <span key={tag} className="text-xs px-2 py-1 bg-gray-100 text-gray-700 rounded">
@@ -315,109 +238,12 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Project Modal */}
-      {selectedProject && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
-          >
-            <div className="relative h-80 md:h-96">
-              <Image
-                src={selectedProject.image}
-                alt={selectedProject.title}
-                fill
-                className="object-cover"
-              />
-              <button 
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 bg-white/80 hover:bg-white text-gray-900 p-2 rounded-full transition-colors"
-              >
-                <FiX className="w-5 h-5" />
-              </button>
-            </div>
-            <div className="p-6 md:p-8">
-              <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-                    {selectedProject.title}
-                  </h2>
-                  <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm capitalize">
-                    {selectedProject.category}
-                  </span>
-                </div>
-                <div className="flex gap-3">
-                  {selectedProject.links.live && (
-                    <a
-                      href={selectedProject.links.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 transition-colors"
-                    >
-                      <FiExternalLink className="w-4 h-4" />
-                      Live Demo
-                    </a>
-                  )}
-                  {selectedProject.links.github && (
-                    <a
-                      href={selectedProject.links.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 bg-gray-800 hover:bg-gray-900 text-white rounded-lg flex items-center gap-2 transition-colors"
-                    >
-                      <FiGithub className="w-4 h-4" />
-                      View Code
-                    </a>
-                  )}
-                </div>
-              </div>
-              
-              <p className="text-gray-600 mb-8 text-lg">{selectedProject.description}</p>
-              
-              <div className="mb-8">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Project Details</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Technologies Used</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {selectedProject.tags.map((tag) => (
-                        <span key={tag} className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-gray-900 mb-2">Category</h4>
-                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm capitalize">
-                      {selectedProject.category}
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-50 rounded-lg p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Client Testimonial</h3>
-                <blockquote className="text-gray-600 italic mb-4">
-                  "Working with this team was an incredible experience. They delivered beyond our expectations and helped us achieve a 300% increase in user engagement."
-                </blockquote>
-                <div className="flex items-center">
-                  <div className="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
-                  <div>
-                    <p className="font-medium text-gray-900">John Smith</p>
-                    <p className="text-sm text-gray-500">CEO, Example Company</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      )}
-
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white">
-        <div className="container mx-auto px-6 text-center">
+      {/* CTA Section with Parallax */}
+      <motion.section 
+        style={{ y }}
+        className="py-16 bg-gradient-to-r from-blue-900 to-indigo-800 text-white"
+      >
+        <div className="container mx-auto px-4 sm:px-6 max-w-7xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -425,23 +251,27 @@ export default function PortfolioPage() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready to Start Your Project?
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+              Ready to Create Something Amazing?
             </h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Let's create something amazing together. Our team is ready to bring your vision to life.
+            <p className="text-lg sm:text-xl text-blue-100 mb-8">
+              Let's collaborate to bring your vision to life with cutting-edge solutions.
             </p>
-            <motion.a
-              href="/contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block px-8 py-3.5 text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="inline-block"
             >
-              Get in Touch
-            </motion.a>
+              <Link
+                href="/contact"
+                className="inline-block px-6 sm:px-8 py-3 sm:py-3.5 text-base sm:text-lg font-semibold rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                Get in Touch
+              </Link>
+            </motion.div>
           </motion.div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
